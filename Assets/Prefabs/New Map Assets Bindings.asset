@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91cd1633c6ee85446835a4bef95776dd, type: 3}
+  m_Name: New Map Assets Bindings
+  m_EditorClassIdentifier: 
+  bindings:
+  - key: 111
+    prefab: {fileID: 3367332196792197250, guid: 2b967c69c2bb6564fac4cbdcc455def5,
+      type: 3}
+  - key: 120
+    prefab: {fileID: 7275425806024250286, guid: cd14c279f10fedb4c861d4571ee68b89,
+      type: 3}
+  - key: 84
+    prefab: {fileID: 3979907295785119844, guid: 9c2d3dedc3ea81c4a9ef38321b2029c0,
+      type: 3}
+  - key: 66
+    prefab: {fileID: 3367332196792197250, guid: 2b967c69c2bb6564fac4cbdcc455def5,
+      type: 3}
