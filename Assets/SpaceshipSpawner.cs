@@ -56,15 +56,11 @@ public class SpaceshipSpawner : MonoBehaviour
         var duration = Vector3.Distance(from, to) / rndSpd;
         Debug.Log(duration);
         spawnedShip.transform.DOMove(to, duration).SetEase(Ease.Linear)
-            .OnComplete(() => Destroy(spawnedShip.gameObject));
-    }
-
-    private IEnumerator DestroyDelayed(GameObject target)
-    {
-        yield return new WaitForSeconds(0.1f);
-        //target.GetComponent<Thrust2D>().currentSequence.Kill();
-        Destroy(target);
-        // ReSharper disable once IteratorNeverReturns
+            .OnComplete(() =>
+            {
+                spawnedShip.SetActive(false);
+                Destroy(spawnedShip.gameObject, 0.5f);
+            });
     }
 
     [Serializable]

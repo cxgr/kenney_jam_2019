@@ -25,6 +25,11 @@ public class Thrust2D : MonoBehaviour
 
     }
 
+    private void OnDisable()
+    {
+        currentSequence.Kill();
+    }
+
     // Update is called once per frame
     private void Animate()
     {
