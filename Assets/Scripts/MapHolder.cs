@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -9,9 +10,11 @@ using UnityEditor;
 public class MapHolder : MonoBehaviour
 {
     public string mapFilePath;
-    public char[,] map;
     public Transform mapRoot;
     public MapAssetsBindings bindings;
+    public Dictionary<Tuple<int, int>, Tile> mapGraph = new Dictionary<Tuple<int, int>, Tile>();
+
+    public Pathing pathing;
 
     public void Generate()
     {
@@ -20,9 +23,9 @@ public class MapHolder : MonoBehaviour
         while (mapRoot.childCount > 0)
             DestroyImmediate(mapRoot.GetChild(0).gameObject);
 
-            var row = 0;
+        var row = 0;
         var col = 0;
-        
+
         using (var reader = File.OpenText(mapFilePath))
         {
             while (!reader.EndOfStream)
@@ -32,8 +35,9 @@ public class MapHolder : MonoBehaviour
                 {
                     if (bindings.prefabDict.ContainsKey(c))
                     {
-                        var newTile = Instantiate(bindings.prefabDict[c], new Vector3(col, 0f, -row), Quaternion.identity, mapRoot);
+                        var newTile = Instantiate(bindings.prefabDict[c], new Vector3(col, 0f, -row), Quaternion.identity, mapRoot).GetComponent<Tile>();
                         newTile.gameObject.name = newTile.gameObject.name.Replace("TILE", $"{row}:{col}");
+                        newTile.EditorInit(row, col);
                     } 
                     col++;
                 }
@@ -42,6 +46,15 @@ public class MapHolder : MonoBehaviour
                 col = 0;
             }
         }
+    }
+
+    private void Awake()
+    {
+        var tiles = GetComponentsInChildren<Tile>(true);
+        foreach (var t in tiles)
+            mapGraph.Add(new Tuple<int, int>(t.row, t.col), t);
+        
+        pathing = new Pathing();
     }
 }
 
