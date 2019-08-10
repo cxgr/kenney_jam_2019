@@ -36,17 +36,27 @@ public class SpaceshipSpawner : MonoBehaviour
     private void Spawn()
     {
         var shipToSpawn = shipsToSpawn[Random.Range(0, shipsToSpawn.Length)];
-
-
         var spawnedShip = Instantiate(shipToSpawn.spaceShipGameObject, transform);
 
-        spawnedShip.transform.position = spawnedShip.transform.forward * _relativeStartEnd.x;
+        var t = spawnedShip.transform;
+        var pos = t.position;
+        pos.y = Random.Range(shipToSpawn._heightMinMax.x, shipToSpawn._heightMinMax.y);
+        t.position = pos;
+        spawnedShip.transform.rotation = Quaternion.Euler(360f * Random.value * Vector3.up);
 
-        spawnedShip.transform.DOLocalMoveZ(_relativeStartEnd.x, 0);
+        var from = t.position + t.forward * _relativeStartEnd.x;
+        var to = t.position + t.forward * _relativeStartEnd.y;
 
-        spawnedShip.transform.position = new Vector3(spawnedShip.transform.position.x, Random.Range(shipToSpawn._heightMinMax.x, shipToSpawn._heightMinMax.y), spawnedShip.transform.position.z);
-        spawnedShip.transform.DOLocalMoveZ(_relativeStartEnd.y, Random.Range(shipToSpawn.SpeedMinMaxVector2.x, shipToSpawn.SpeedMinMaxVector2.y)).SetSpeedBased().SetEase(Ease.Linear).SetAutoKill()
-            .OnComplete(() => StartCoroutine(DestroyDelayed(spawnedShip)));
+        t.position = from;
+        t.LookAt(to, Vector3.up);
+        
+        var rndSpd = Random.Range(shipToSpawn.SpeedMinMaxVector2.x, shipToSpawn.SpeedMinMaxVector2.y);
+        Debug.Log(from);
+        Debug.Log(to);
+        var duration = Vector3.Distance(from, to) / rndSpd;
+        Debug.Log(duration);
+        spawnedShip.transform.DOMove(to, duration).SetEase(Ease.Linear)
+            .OnComplete(() => Destroy(spawnedShip.gameObject));
     }
 
     private IEnumerator DestroyDelayed(GameObject target)
