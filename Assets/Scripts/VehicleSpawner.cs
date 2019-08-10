@@ -1,6 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class VehicleSpawner : MonoBehaviour
 {
@@ -16,7 +19,22 @@ public class VehicleSpawner : MonoBehaviour
     public float spawnTimer = 5f;
 
     private MapHolder map => SingletonUtils<MapHolder>.Instance;
-    
+
+    private void Awake()
+    {
+        if (null == tileSrc)
+        {
+            tileSrc = FindObjectsOfType<TileRoad>()
+                .OrderBy(tr => Vector3.Distance(transform.position, tr.transform.position)).FirstOrDefault();
+        }
+
+        if (null == tileDst)
+        {
+            tileDst = FindObjectsOfType<TileRoad>()
+                .OrderByDescending(tr => Vector3.Distance(transform.position, tr.transform.position)).FirstOrDefault(); 
+        }
+    }
+
     void Update()
     {
         if (isLive)
@@ -24,20 +42,23 @@ public class VehicleSpawner : MonoBehaviour
             if (spawnTimer <= 0f)
             {
                 Spawn();
-                spawnTimer = spawnCooldown;
+                spawnTimer = Mathf.Max(2f,spawnCooldown * Random.value * 1.5f);
             }
             else
                 spawnTimer -= Time.deltaTime;
         }
     }
     
-    public void Spawn()
+    public void Spawn(bool allowFlip = true)
     {
-        if (Random.value < .5f)
+        if (allowFlip && liveVehicles.Count == 0)
         {
-            var tmp = tileSrc;
-            tileSrc = tileDst;
-            tileDst = tmp;
+            if (Random.value < .5f)
+            {
+                var tmp = tileSrc;
+                tileSrc = tileDst;
+                tileDst = tmp;
+            }   
         }
 
         var vehicle = Instantiate(vehiclePrefabs[Random.Range(0, vehiclePrefabs.Length)],

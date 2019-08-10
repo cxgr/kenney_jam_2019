@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 364153245321475363}
   - component: {fileID: 153062867311305646}
   - component: {fileID: -2471514259380067888}
-  m_Layer: 0
+  - component: {fileID: -2271612171356552106}
+  m_Layer: 14
   m_Name: Veh1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,7 +33,7 @@ Transform:
   - {fileID: 4645198844272683113}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 29.414001, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &153062867311305646
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -41,7 +42,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 364153245321475364}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.45, y: 0.5, z: 0.61}
@@ -61,6 +62,22 @@ MonoBehaviour:
   moveSpd: 2
   path: []
   owner: {fileID: 0}
+--- !u!54 &-2271612171356552106
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 364153245321475364}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &364153244503769971
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -36,6 +36,7 @@ public class MapHolder : MonoBehaviour
                     if (bindings.prefabDict.ContainsKey(c))
                     {
                         var newTile = Instantiate(bindings.prefabDict[c], new Vector3(col, 0f, -row), Quaternion.identity, mapRoot).GetComponent<Tile>();
+                        newTile.gameObject.SetActive(true);
                         newTile.gameObject.name = newTile.gameObject.name.Replace("TILE", $"{row}:{col}");
                         newTile.EditorInit(row, col);
                     } 
