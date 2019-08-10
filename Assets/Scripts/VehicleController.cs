@@ -121,6 +121,7 @@ public class VehicleController : MonoBehaviour
         ui.Performance -= isVIP ? map.performanceDropPerCrashVIP : map.performanceDropPerCrash;
 
         isExploding = true;
+        goPathTween.Kill();
         transform.DOScale(1.2f, .05f).OnComplete(() =>
         {
             SingletonUtils<FxController>.Instance.PlayExplosion(transform.position);

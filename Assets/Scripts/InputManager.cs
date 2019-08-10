@@ -27,7 +27,8 @@ public class InputManager : MonoBehaviour
         }
         
         var ray = rayCam.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out var rHit, Mathf.Infinity, rayMask))
+        //if (Physics.Raycast(ray, out var rHit, Mathf.Infinity, rayMask))
+        if (Physics.SphereCast(ray, .15f, out var rHit, Mathf.Infinity, rayMask))
         {
             var car = rHit.collider.GetComponent<VehicleController>();
             if (null != car)

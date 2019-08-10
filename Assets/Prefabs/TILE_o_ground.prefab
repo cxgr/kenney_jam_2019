@@ -45,11 +45,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c587b6b1631800c41a6ce77f1886fc5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   row: 0
   col: 0
   randomizeRot: 0
   randomizeContent: 0
   randomContent: []
+  isTraversible: 0
 --- !u!65 &8390240067131582348
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -145,6 +155,12 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: -1504981713932161579, guid: 3647d21a9d6f5cd40a3b101ecaa0f9be,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 8507789265930873676, guid: d4e1e5ed57b874e4da6ccb2285efaf1f,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3647d21a9d6f5cd40a3b101ecaa0f9be, type: 3}
 --- !u!4 &7764660973868601974 stripped
