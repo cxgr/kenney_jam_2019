@@ -83,16 +83,30 @@ PluginImporter:
   - first:
       Standalone: Linux64
     second:
+<<<<<<< HEAD
+=======
       enabled: 1
       settings:
         CPU: 
   - first:
       Standalone: LinuxUniversal
     second:
+>>>>>>> origin/R-A_PropsShips
       enabled: 1
       settings:
         CPU: 
   - first:
+<<<<<<< HEAD
+      Standalone: LinuxUniversal
+=======
+      Standalone: OSXUniversal
+>>>>>>> origin/R-A_PropsShips
+    second:
+      enabled: 1
+      settings:
+        CPU: 
+  - first:
+<<<<<<< HEAD
       Standalone: OSXUniversal
     second:
       enabled: 1
@@ -100,17 +114,29 @@ PluginImporter:
         CPU: 
   - first:
       Standalone: Win
+=======
+      Standalone: Win
+    second:
+      enabled: 0
+      settings:
+        CPU: 
+  - first:
+      Standalone: Win64
+>>>>>>> origin/R-A_PropsShips
     second:
       enabled: 1
       settings:
         CPU: 
   - first:
+<<<<<<< HEAD
       Standalone: Win64
     second:
       enabled: 0
       settings:
         CPU: 
   - first:
+=======
+>>>>>>> origin/R-A_PropsShips
       Windows Store Apps: WindowsStoreApps
     second:
       enabled: 0

@@ -85,7 +85,11 @@ PluginImporter:
       enabled: 1
       settings: {}
   - first:
+<<<<<<< HEAD
       Standalone: Win64
+=======
+      Standalone: Win
+>>>>>>> origin/R-A_PropsShips
     second:
       enabled: 1
       settings: {}
