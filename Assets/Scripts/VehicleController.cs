@@ -76,6 +76,8 @@ public class VehicleController : MonoBehaviour
 
     public void Go(List<Tile> path, VehicleSpawner owner, bool isVIP = false)
     {
+        transform.localScale = Vector3.one * .7f;
+        
         this.path = path;
         this.owner = owner;
         this.isVIP = isVIP;
@@ -84,7 +86,7 @@ public class VehicleController : MonoBehaviour
 
         goPathTween = transform.DOPath(
                 path.Select(p => map.mapGraph[p.coordTuple].GetMovementPos()).ToArray(),
-                path.Count / moveSpd * map.carSlowdown, PathType.Linear, PathMode.Full3D, 10)
+                path.Count / moveSpd * map.carSlowdown, PathType.CatmullRom , PathMode.Full3D, 20)
             .SetOptions(false, AxisConstraint.None, AxisConstraint.X | AxisConstraint.Z)
             .SetLookAt(0.001f, null, Vector3.up).SetEase(Ease.Linear)
             .OnComplete(() => Despawn(true));

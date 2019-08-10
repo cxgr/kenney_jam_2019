@@ -45,11 +45,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c587b6b1631800c41a6ce77f1886fc5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   row: 0
   col: 0
   randomizeRot: 1
   randomizeContent: 0
   randomContent: []
+  isTraversible: 0
 --- !u!65 &745602299315505630
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -470,7 +480,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8507789265930873676, guid: 3647d21a9d6f5cd40a3b101ecaa0f9be, type: 3}
+  - {fileID: 2100000, guid: bee2598edbcefb74a90818f232ebd955, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

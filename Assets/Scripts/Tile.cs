@@ -22,8 +22,8 @@ public class Tile : SerializedMonoBehaviour
     public override string ToString() => $"r: {row} c: {col} t: {isTraversible}";
 
     protected MapHolder map => SingletonUtils<MapHolder>.Instance;
-    
-    public Vector3 GetMovementPos()
+
+    public virtual Vector3 GetMovementPos()
     {
         return transform.position + new Vector3(.5f, .2f, -.5f);
     }

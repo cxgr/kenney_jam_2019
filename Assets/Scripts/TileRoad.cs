@@ -76,4 +76,20 @@ public class TileRoad : Tile
             Debug.Log("hui");
         }
     }
+
+    private Transform cachedCurvePoint;
+    private void Awake()
+    {
+        var ccp = GetComponentInChildren<RoadCurveMarker>(false);
+        if (null != ccp)
+            cachedCurvePoint = ccp.transform;
+    }
+
+    public override Vector3 GetMovementPos()
+    {
+        if (null != cachedCurvePoint)
+            return cachedCurvePoint.position + Vector3.up * .2f;
+        else
+            return base.GetMovementPos();
+    }
 }
