@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.UI;
 
 public class UiManager : MonoBehaviour
@@ -23,6 +24,7 @@ public class UiManager : MonoBehaviour
             
             _performance = Mathf.Clamp01(value);
             sldPerformance.value = _performance;
+            UpdatePP(_performance);
         }
     }
 
@@ -32,6 +34,7 @@ public class UiManager : MonoBehaviour
     private void Awake()
     {
         Cursor.SetCursor(cursorTex, hotspot, CursorMode.Auto);
+        Performance = 0.5f;
     }
 
     public float blinkLerp = 100f;
@@ -49,5 +52,17 @@ public class UiManager : MonoBehaviour
     {
         if (null != evacProgress)
             evacProgress.fillAmount = newVal;
+    }
+
+    public PostProcessVolume ppv;
+
+    void UpdatePP(float happiness)
+    {
+        if (null != ppv)
+        {
+            var pp = ppv.sharedProfile;
+            pp.TryGetSettings<ColorGrading>(out var cg);
+            cg.ldrLutContribution.value = 1f - happiness;   
+        }
     }
 }
