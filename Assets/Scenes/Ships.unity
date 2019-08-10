@@ -120,6 +120,97 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &623101337
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 623101339}
+  - component: {fileID: 623101338}
+  m_Layer: 0
+  m_Name: Directional Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!108 &623101338
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623101337}
+  m_Enabled: 1
+  serializedVersion: 9
+  m_Type: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_Range: 10
+  m_SpotAngle: 30
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &623101339
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623101337}
+  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalPosition: {x: 9.73616, y: -2.0216122, z: 0.3350315}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &810918884
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,16 +240,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd58d0924c3641b4f9d1298d1b0585fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shipsToSpawn:
-  - {fileID: 27627907129334057, guid: 29e769cca3ebdde4988844aab1711a28, type: 3}
-  - {fileID: 6262864516984288360, guid: c30ea219603df1849a94b2c610e72501, type: 3}
-  - {fileID: 5759915801448876450, guid: f763719f4bb017c4689f9365c1c52bfe, type: 3}
-  - {fileID: 8155560996776567502, guid: e832c303137bb6246a7698c351b6d26f, type: 3}
-  - {fileID: 3093602181630987602, guid: f796ed0936fd8124db6a525852515af9, type: 3}
-  - {fileID: 2850404233524108850, guid: f65f554c2bbfcaa4189c5f8997b2234b, type: 3}
-  _relativeStartEnd: {x: 200, y: -200}
-  _spawnChance: 0
-  _spawnFrequency: 0.5
+  shipsToSpawn:
+  - spaceShipGameObject: {fileID: 1649941064368385231, guid: 365655f1449fdfe4fa18abcfebe0455f,
+      type: 3}
+    SpeedMinMaxVector2: {x: 9, y: 16}
+    _heightMinMax: {x: 10, y: 12}
+  - spaceShipGameObject: {fileID: 4868669388356588168, guid: 75629732e22821a4daf05c68e2ff73d4,
+      type: 3}
+    SpeedMinMaxVector2: {x: 14, y: 26}
+    _heightMinMax: {x: 8, y: 10}
+  - spaceShipGameObject: {fileID: 2676833596447252180, guid: e6c7be2ad13c7cf4fa5ecf6e3046f606,
+      type: 3}
+    SpeedMinMaxVector2: {x: 8, y: 14}
+    _heightMinMax: {x: 6, y: 8}
+  - spaceShipGameObject: {fileID: 5612732438555379780, guid: 692bf287dd5fc0c4cb2af6d58d2a1c86,
+      type: 3}
+    SpeedMinMaxVector2: {x: 11, y: 17}
+    _heightMinMax: {x: 6, y: 9}
+  - spaceShipGameObject: {fileID: 1509508876763044798, guid: d1b1f57c9548bae4a85f8532839d1d91,
+      type: 3}
+    SpeedMinMaxVector2: {x: 14, y: 30}
+    _heightMinMax: {x: 4, y: 6}
+  - spaceShipGameObject: {fileID: 2904239046929104104, guid: 7f39deb3a58389343a2efcac00013d33,
+      type: 3}
+    SpeedMinMaxVector2: {x: 6, y: 9}
+    _heightMinMax: {x: 12, y: 13}
+  _relativeStartEnd: {x: -200, y: 200}
+  _spawnChance: 90
+  _spawnFrequency: 4
 --- !u!4 &810918886
 Transform:
   m_ObjectHideFlags: 0
@@ -167,12 +276,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 810918884}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.36485004, y: -2.7624369, z: 2.7084064}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -141.263, z: 0}
 --- !u!1 &1997639277
 GameObject:
   m_ObjectHideFlags: 0
