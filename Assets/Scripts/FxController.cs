@@ -5,7 +5,11 @@ using UnityEngine;
 
 public class FxController : MonoBehaviour
 {
+    public GameObject bubblePrefab;
     public ParticleSystem explosionPrefab;
+
+    public ParticleSystem evac1;
+    public ParticleSystem evac2;
 
     public void PlayExplosion(Vector3 pos)
     {
@@ -17,5 +21,20 @@ public class FxController : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         Destroy(go);
+    }
+
+    public SpeechBubble GetSpeechBubble()
+    {
+        var b = Instantiate(bubblePrefab, transform);
+        b.SetActive(true);
+        return b.GetComponent<SpeechBubble>();
+    }
+
+    public void PlayEvacFx(Vector3 from, Vector3 to)
+    {
+        evac1.transform.position = from;
+        evac1.Play();
+        evac2.transform.position = to;
+        evac2.Play();
     }
 }

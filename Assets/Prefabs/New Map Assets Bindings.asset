@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: New Map Assets Bindings
   m_EditorClassIdentifier: 
   bindings:
-  - key: 66
+  - key: 71
     prefab: {fileID: 3367332196792197250, guid: 2b967c69c2bb6564fac4cbdcc455def5,
       type: 3}
-  - key: 72
+  - key: 67
     prefab: {fileID: 3979907295785119844, guid: 9c2d3dedc3ea81c4a9ef38321b2029c0,
       type: 3}
   - key: 82

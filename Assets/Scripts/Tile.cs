@@ -20,6 +20,8 @@ public class Tile : SerializedMonoBehaviour
     public Tuple<int, int> coordTuple => new Tuple<int, int>(row, col);
 
     public override string ToString() => $"r: {row} c: {col} t: {isTraversible}";
+
+    protected MapHolder map => SingletonUtils<MapHolder>.Instance;
     
     public Vector3 GetMovementPos()
     {

@@ -13,6 +13,11 @@ public class InputManager : MonoBehaviour
 
     private Tile t1;
     private Tile t2;
+
+    public bool isHolding = false;
+    public float holdingTimer;
+    public float evacTime = 1f;
+    
     private void Update()
     {
         if (EventSystem.current.IsPointerOverGameObject())
@@ -28,10 +33,43 @@ public class InputManager : MonoBehaviour
             if (null != car)
             {
                 if (Input.GetMouseButtonDown(0))
-                    car.HandleTap();
+                {
+                    var result = car.ToggleEngine();
+                    if (result)
+                        isHolding = true;
+                }
+                if (Input.GetMouseButtonUp(0))
+                {
+                    StopHolding();
+                }
+
+                if (isHolding)
+                {
+                    if (holdingTimer >= evacTime)
+                    {
+                        car.HandleEvac();
+                        StopHolding();
+                    }
+                    else
+                        holdingTimer += Time.deltaTime;
+                }
+            }
+            else
+            {
+                StopHolding();
             }
         }
         else
+        {
+            StopHolding();
             tileHighlight.transform.position = Vector3.up * 100f;
+        }
+    }
+
+    void StopHolding()
+    {
+        holdingTimer = 0f;
+        isHolding = false;
+        SingletonUtils<UiManager>.Instance.UpdateEvac(0f);
     }
 }
