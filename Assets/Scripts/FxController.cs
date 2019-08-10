@@ -8,6 +8,8 @@ public class FxController : MonoBehaviour
     public GameObject bubblePrefab;
     public ParticleSystem explosionPrefab;
 
+    public ParticleSystem carTrail;
+
     public ParticleSystem evac1;
     public ParticleSystem evac2;
 
