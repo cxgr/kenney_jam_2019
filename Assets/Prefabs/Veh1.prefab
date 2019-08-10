@@ -59,9 +59,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e6073aa11186f74eadc3c3a45624313, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpd: 1.8
+  moveSpd: 2
   path: []
   owner: {fileID: 0}
+  isVIP: 0
 --- !u!54 &2475791673401165030
 Rigidbody:
   m_ObjectHideFlags: 0
