@@ -33,8 +33,8 @@ public class UiManager : MonoBehaviour
     
     private void Awake()
     {
-        Cursor.SetCursor(cursorTex, hotspot, CursorMode.Auto);
-        Performance = 0.5f;
+        //Cursor.SetCursor(cursorTex, hotspot, CursorMode.Auto);
+        //Performance = 0.5f;
     }
 
     public float blinkLerp = 100f;
