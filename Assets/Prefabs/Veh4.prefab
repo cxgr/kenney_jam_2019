@@ -62,6 +62,10 @@ MonoBehaviour:
   moveSpd: 1.5
   path: []
   owner: {fileID: 0}
+  isVIP: 0
+  carState: 0
+  acceleration: 1.5
+  accelFactor: 0
 --- !u!54 &2823649150061349909
 Rigidbody:
   m_ObjectHideFlags: 0

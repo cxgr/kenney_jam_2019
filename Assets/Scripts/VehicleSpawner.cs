@@ -65,11 +65,50 @@ public class VehicleSpawner : MonoBehaviour
         */
     }
 
+    public bool debugSpawner;
+    void Start()
+    {
+        if (debugSpawner)
+        {
+            isLive = false;
+            StartCoroutine(debugCor());
+        }
+    }
+
+    IEnumerator debugCor()
+    {
+        var vehicle = Instantiate(session.GetCarPrefab(false, 7),
+            tileSrc.GetMovementPos(), Quaternion.identity).GetComponent<VehicleController>();
+        vehicle.Go(map.pathing.FindPath(tileSrc, tileDst), this);
+        liveVehicles.Add(vehicle);
+
+        vehicle.verbose = false;
+        
+        yield return new WaitForSeconds(6f);
+        
+        vehicle = Instantiate(session.GetCarPrefab(false, 0),
+            tileSrc.GetMovementPos(), Quaternion.identity).GetComponent<VehicleController>();
+        vehicle.Go(map.pathing.FindPath(tileSrc, tileDst), this);
+        liveVehicles.Add(vehicle);
+        
+        vehicle.verbose = false;
+        
+        yield return new WaitForSeconds(4f);
+        
+        vehicle = Instantiate(session.GetCarPrefab(false, 0),
+            tileSrc.GetMovementPos(), Quaternion.identity).GetComponent<VehicleController>();
+        vehicle.Go(map.pathing.FindPath(tileSrc, tileDst), this);
+        liveVehicles.Add(vehicle);
+        vehicle.verbose = true;
+    }
+
+    public int maxCarsAllowed = -1;
+
     void Update()
     {
         if (isLive)
         {
-            if (spawnTimer <= 0f)
+            if (spawnTimer <= 0f && (maxCarsAllowed < 0 || liveVehicles.Count < maxCarsAllowed))
             {
                 StartCoroutine(Spawn());
                 spawnTimer = Mathf.Max(4f,spawnCooldown * Random.value * 2) + 4f;

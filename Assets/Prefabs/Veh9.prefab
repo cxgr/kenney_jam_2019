@@ -63,6 +63,9 @@ MonoBehaviour:
   path: []
   owner: {fileID: 0}
   isVIP: 0
+  carState: 0
+  acceleration: 1.5
+  accelFactor: 0
 --- !u!54 &7610047533544567329
 Rigidbody:
   m_ObjectHideFlags: 0
