@@ -58,7 +58,7 @@ namespace SCPE
         {
             var sheet = context.propertySheets.Get(shader);
 
-            sheet.properties.SetVector("_Params", new Vector4(settings.amount, settings.intensity / 1000, settings.speed * 8f, 0f));
+            sheet.properties.SetVector("_Params", new Vector4(settings.amount, settings.intensity / 1000, settings.speed * 8f, Time.timeSinceLevelLoad * 3));
 
             context.command.BlitFullscreenTriangle(context.source, context.destination, sheet, 0);
         }

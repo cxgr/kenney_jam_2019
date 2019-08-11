@@ -16,7 +16,7 @@ Shader "Hidden/SC Post Effects/Scanlines"
 
 		float4 screenColor = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv);
 
-		half linesY = uv.y - sin(uv.y * _Params.x + (_Time.w * _Params.z)) * _Params.x;
+		half linesY = uv.y - sin(uv.y * _Params.x + (_Params.w * _Params.z)) * _Params.x;
 
 		float3 color = lerp(screenColor, screenColor * linesY, _Params.y).rgb;
 
