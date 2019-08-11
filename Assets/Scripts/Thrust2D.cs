@@ -5,7 +5,7 @@ public class Thrust2D : MonoBehaviour
 {
     [SerializeField] private Vector2 _scaleMultiplierMinMax = new Vector2(.5f, 1.25f);
 
-    [SerializeField] private Vector3[] scaleOriginal;
+    private Vector3[] scaleOriginal;
 
     [SerializeField] private float _scaleChangeSpeed = 1.5f;
 
