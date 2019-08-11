@@ -109,8 +109,8 @@ public class UiManager : MonoBehaviour
     public void BtnSound()
     {
         var aud = SingletonUtils<SoundManager>.Instance;
-        aud.audioOn = !aud.audioOn;
-        audBtnText.text = $"AUDIO {(aud.audioOn ? "ON" : "OFF")}";
+        aud.SetAudio(!aud.IsAudioOn);
+        audBtnText.text = $"AUDIO {(aud.IsAudioOn ? "ON" : "OFF")}";
     }
 
     public void BtnQuit()

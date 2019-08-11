@@ -68,6 +68,8 @@ public class VehicleSpawner : MonoBehaviour
     public bool debugSpawner;
     void Start()
     {
+        //tileCheckMask = 1 << LayerMask.NameToLayer("Vehicles");
+            
         if (debugSpawner)
         {
             isLive = false;
@@ -110,17 +112,37 @@ public class VehicleSpawner : MonoBehaviour
         {
             if (spawnTimer <= 0f && (maxCarsAllowed < 0 || liveVehicles.Count < maxCarsAllowed))
             {
-                StartCoroutine(Spawn());
-                spawnTimer = Mathf.Max(2f,spawnCooldown * Random.value * 2) + 3f;
+                if (CheckSpawnAvailable())
+                {
+                    StartCoroutine(Spawn());
+                    spawnTimer = Mathf.Max(2f, spawnCooldown * Random.value * 2) + 3f;
+                }
             }
             else
                 spawnTimer -= Time.deltaTime;
         }
     }
+
+    public LayerMask tileCheckMask;
+    bool CheckSpawnAvailable()
+    {
+        return Physics.OverlapBox(tileSrc.GetMovementPos(), Vector3.one / 2f, Quaternion.identity, tileCheckMask)
+                   .Length == 0;
+    }
     
     IEnumerator Spawn(bool allowFlip = true)
     {
         var bubble = SingletonUtils<FxController>.Instance.GetSpeechBubble();
+
+        bubble.PlayClip(tileSrc.GetMovementPos() + Vector3.up * .25f, "alert");
+        yield return new WaitForSeconds(4f);
+        bubble.Release();
+
+        var vehicle = Instantiate(session.GetCarPrefab(true),
+            tileSrc.GetMovementPos(), Quaternion.identity).GetComponent<VehicleController>();
+        vehicle.Go(map.pathing.FindPath(tileSrc, tileDst), this);
+        liveVehicles.Add(vehicle);
+        
         if (allowFlip && liveVehicles.Count == 0)
         {
             if (Random.value < .5f)
@@ -130,15 +152,6 @@ public class VehicleSpawner : MonoBehaviour
                 tileDst = tmp;
             }   
         }
-        
-        bubble.PlayClip(tileSrc.GetMovementPos() + Vector3.up * .25f, "alert");
-        yield return new WaitForSeconds(4f);
-        bubble.Release();
-
-        var vehicle = Instantiate(session.GetCarPrefab(true),
-            tileSrc.GetMovementPos(), Quaternion.identity).GetComponent<VehicleController>();
-        vehicle.Go(map.pathing.FindPath(tileSrc, tileDst), this);
-        liveVehicles.Add(vehicle);
     }
     
     public void RemoveMe(VehicleController vc)
