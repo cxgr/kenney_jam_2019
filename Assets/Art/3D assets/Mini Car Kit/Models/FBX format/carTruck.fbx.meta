@@ -3,7 +3,42 @@ guid: 9ed841b0690dfc448996c4d894740281
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: backLight
+    second: {fileID: 2100000, guid: 90ab4c286743d204db188a866b9b7172, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: carTire
+    second: {fileID: 2100000, guid: 1db63626a592e8a44b45b65ba7c2dc6d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: frontLight
+    second: {fileID: 2100000, guid: 676e2db2a4cb4834eaf19f9ef6561fbc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: glass
+    second: {fileID: 2100000, guid: 8a98195e59e103d46a7cdd07db601d6c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: paintGreen
+    second: {fileID: 2100000, guid: e0778b02de9ff7d469b778769ebec50b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: plastic
+    second: {fileID: 2100000, guid: 23b6e07644a39544f8c08a297f9012fe, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wheelCover
+    second: {fileID: 2100000, guid: acecd152f471d7448910917776338baa, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
