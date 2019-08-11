@@ -3,7 +3,17 @@ guid: 40864de47108dfa4aa3b0203cc71117a
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: carTire
+    second: {fileID: 2100000, guid: 1b541795456162b43a0310cdbb336791, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wheelCover
+    second: {fileID: 2100000, guid: d638f387eea8f7149ac263e1fb9a8a65, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
