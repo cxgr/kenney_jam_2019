@@ -8,7 +8,8 @@ public class FxController : MonoBehaviour
     public GameObject bubblePrefab;
     public ParticleSystem explosionPrefab;
 
-    public ParticleSystem carTrail;
+    public GameObject carTrail;
+    public GameObject headlights;
 
     public ParticleSystem evac1;
     public ParticleSystem evac2;
@@ -17,12 +18,6 @@ public class FxController : MonoBehaviour
     {
         var fx = Instantiate(explosionPrefab, pos, Quaternion.Euler(Vector3.right * 270f), transform);
         fx.GetComponent<ParticleSystem>().Play();
-    }
-
-    IEnumerator killDelayed(float delay, GameObject go)
-    {
-        yield return new WaitForSeconds(delay);
-        Destroy(go);
     }
 
     public SpeechBubble GetSpeechBubble()
@@ -38,5 +33,24 @@ public class FxController : MonoBehaviour
         evac1.Play();
         evac2.transform.position = to;
         evac2.Play();
+    }
+
+    public void AttachCarDeco(Transform carT)
+    {
+        var newTrail = Instantiate(carTrail, carT);
+        newTrail.transform.localRotation = Quaternion.Euler(Vector3.right * 270f);
+        newTrail.transform.localPosition = Vector3.up * .2f;
+        newTrail.GetComponent<ParticleSystem>().Play();
+
+        return;
+        var l1 = Instantiate(headlights, carT);
+        l1.transform.localRotation = Quaternion.Euler(Vector3.right * 20f);
+        l1.transform.localPosition = new Vector3(-.08f, .1f, .2f);
+        l1.SetActive(true);
+        
+        var l2 = Instantiate(headlights, carT);
+        l2.transform.localRotation = Quaternion.Euler(Vector3.right * 20f);
+        l2.transform.localPosition = new Vector3(.08f, .1f, .2f);
+        l2.SetActive(true);
     }
 }

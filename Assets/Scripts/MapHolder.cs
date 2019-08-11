@@ -30,6 +30,9 @@ public class MapHolder : SerializedMonoBehaviour
     public float performanceGainPerArrival = 0.1f;
     public float performanceGainPerArrivalVIP = 0.3f;
 
+    public float angeryCooldown = .5f;
+    public float angeryPerformanceLossPerTick = 0.01f;
+
     public void Generate()
     {
         bindings.Init();
@@ -79,6 +82,9 @@ public class MapHolder : SerializedMonoBehaviour
         
         pathing = new Pathing();
     }
+
+    public LayerMask probeMask;
+    public float probeLen;
 }
 
 #if UNITY_EDITOR

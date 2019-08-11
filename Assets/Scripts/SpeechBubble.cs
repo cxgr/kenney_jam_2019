@@ -24,9 +24,29 @@ public class SpeechBubble : MonoBehaviour
         anim.Play("blank");
         Destroy(gameObject, 1f);
     }
+    
+    
+    private Transform followT;
+    private Vector3 followOffset;
+    private bool fwdMode;
+    private float fwdOffsetLen;
+    public void FollowMe(Transform t, Vector3 offset, bool fwdFollow = false, float fwdOffsetLen = 0f)
+    {
+        followT = t;
+        followOffset = offset;
+        fwdMode = fwdFollow;
+    }
 
     void Update()
     {
+        if (null != followT)
+        {
+            var followPos = followT.position + followOffset;
+            if (fwdMode)
+                followPos += followT.forward * fwdOffsetLen;
+            transform.position = followPos;
+        }
+
         transform.LookAt(camT, camT.up);
     }
 }
