@@ -39,7 +39,7 @@ public class FxController : MonoBehaviour
     {
         var newTrail = Instantiate(carTrail, carT);
         newTrail.transform.localRotation = Quaternion.Euler(Vector3.right * 270f);
-        newTrail.transform.localPosition = Vector3.up * .2f;
+        newTrail.transform.localPosition = Vector3.back * .2f + Vector3.up * 0.05f;
         newTrail.GetComponent<ParticleSystem>().Play();
 
         return;

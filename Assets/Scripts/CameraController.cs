@@ -18,6 +18,8 @@ public class CameraController : MonoBehaviour
 	private Vector3 startPos;
 
 	private float zoomFactor = .5f;
+
+	public Transform listener;
 	
 	void Awake()
 	{
@@ -60,6 +62,8 @@ public class CameraController : MonoBehaviour
 		zoomFactor -= Input.GetAxis("Mouse ScrollWheel");
 		zoomFactor = Mathf.Clamp01(zoomFactor);
 		camT.transform.localPosition = -camT.forward * Mathf.Lerp(zoomConstr.x, zoomConstr.y, zoomFactor);
+
+		listener.transform.localPosition = -camT.forward * Mathf.Lerp(0f, zoomConstr.x, zoomFactor);
 
 		var tmp = transform.position;
 		tmp.x = Mathf.Clamp(tmp.x, startPos.x - xz.x, startPos.x + xz.x);

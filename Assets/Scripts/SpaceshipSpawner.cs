@@ -14,11 +14,7 @@ public class SpaceshipSpawner : MonoBehaviour
 
     [SerializeField] private float _spawnFrequency = 3f;
 
-    // Start is called before the first frame update
-    private void Start()
-    {
-        StartCoroutine(Tick());
-    }
+    public void Go() => StartCoroutine(Tick());
 
     private IEnumerator Tick()
     {
@@ -37,6 +33,7 @@ public class SpaceshipSpawner : MonoBehaviour
     {
         var shipToSpawn = shipsToSpawn[Random.Range(0, shipsToSpawn.Length)];
         var spawnedShip = Instantiate(shipToSpawn.spaceShipGameObject, transform);
+        spawnedShip.transform.localScale *= .1f; 
 
         var t = spawnedShip.transform;
         var pos = t.position;

@@ -14,6 +14,12 @@ public class SessionManager : MonoBehaviour
 
     private UiManager ui => SingletonUtils<UiManager>.Instance;
 
+    public SpaceshipSpawner ss;
+
+    public int arrived = 0;
+    public int dead = 0;
+    public int annoyed = 0;
+
     public GameObject GetCarPrefab(bool random, int idx = 0)
     {
         return random ? carPrefabs[Random.Range(0, carPrefabs.Length)] : carPrefabs[idx];
@@ -31,6 +37,7 @@ public class SessionManager : MonoBehaviour
         {
             s.isLive = true;
         }
+        ss.Go();
         
         SingletonUtils<TimeManager>.Instance.StartTimer();
     }

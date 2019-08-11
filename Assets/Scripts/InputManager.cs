@@ -51,8 +51,6 @@ public class InputManager : MonoBehaviour
                             isHolding = true;
                     }
 
-                    Debug.Log(TimeSinceLastClick);
-
                     lastClickTime = Time.timeSinceLevelLoad;
                     lastClickObject = car;
                 }
