@@ -128,6 +128,7 @@ public class UiManager : MonoBehaviour
 
     public void BtnRestart()
     {
+        ttm.SetPaused(false);
         SceneManager.LoadScene(0);
     }
 }
