@@ -26,6 +26,18 @@ public class VehicleController : MonoBehaviour
     private Coroutine currentWaitingCor;
 
     public bool isVIP;
+    
+    public enum CarStates
+    {
+        Stopped,
+        Accelerating,
+        Going,
+        Decelerating,
+    }
+
+    public CarStates carState = CarStates.Stopped;
+    public float accelPower;
+    public float accelFactor = 0f;
 
     public bool ToggleEngine()
     {
@@ -33,6 +45,12 @@ public class VehicleController : MonoBehaviour
             return false;
         
         isStopped = !isStopped;
+
+        if (isStopped)
+            carState = CarStates.Decelerating;
+        else
+            carState = CarStates.Accelerating;
+
 
         if (isStopped)
         {
@@ -90,6 +108,8 @@ public class VehicleController : MonoBehaviour
             .SetOptions(false, AxisConstraint.None, AxisConstraint.X | AxisConstraint.Z)
             .SetLookAt(0.001f, null, Vector3.up).SetEase(Ease.Linear)
             .OnComplete(() => Despawn(true));
+        goPathTween.timeScale = 5f * Random.value;
+        carState = CarStates.Accelerating;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -158,5 +178,26 @@ public class VehicleController : MonoBehaviour
         if (Random.value < .6666f)
             return "happy2";
         return "happy3";
+    }
+
+    private void Update()
+    {
+        switch (carState)
+        {
+            case CarStates.Accelerating:
+                accelFactor += accelPower * Time.deltaTime;
+                if (accelFactor >= 1f)
+                    carState = CarStates.Going;
+                break; 
+            case CarStates.Decelerating:
+                accelFactor -= accelPower * Time.deltaTime;
+                if (accelFactor <= 0f)
+                    carState = CarStates.Stopped;
+                break;
+        }
+        
+        accelFactor = Mathf.Clamp01(accelFactor);
+        if (null != goPathTween && goPathTween.IsPlaying())
+            goPathTween.timeScale = accelFactor;
     }
 }
