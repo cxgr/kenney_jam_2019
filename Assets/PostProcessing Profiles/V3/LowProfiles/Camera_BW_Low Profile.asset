@@ -217,7 +217,7 @@ MonoBehaviour:
     defaultState: 4
   ldrLutContribution:
     overrideState: 0
-    value: 0.6199999
+    value: 1
   temperature:
     overrideState: 1
     value: 7
@@ -1527,16 +1527,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48a79b01ea5641d4aa6daa2e23605641, type: 3}
   m_Name: Bloom
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
   intensity:
     overrideState: 1
-    value: 0.77
+    value: 5
   threshold:
     overrideState: 1
-    value: 0.75
+    value: 1
   softKnee:
     overrideState: 0
     value: 0.5
