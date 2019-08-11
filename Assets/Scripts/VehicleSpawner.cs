@@ -111,7 +111,7 @@ public class VehicleSpawner : MonoBehaviour
             if (spawnTimer <= 0f && (maxCarsAllowed < 0 || liveVehicles.Count < maxCarsAllowed))
             {
                 StartCoroutine(Spawn());
-                spawnTimer = Mathf.Max(4f,spawnCooldown * Random.value * 2) + 4f;
+                spawnTimer = Mathf.Max(2f,spawnCooldown * Random.value * 2) + 3f;
             }
             else
                 spawnTimer -= Time.deltaTime;

@@ -17,7 +17,14 @@ public class InputManager : MonoBehaviour
     public bool isHolding = false;
     public float holdingTimer;
     public float evacTime = 1f;
-    
+
+    public float lastClickTime;
+    public VehicleController lastClickObject;
+
+    public float doubleClickThreshold = .15f;
+
+    private float TimeSinceLastClick => Time.timeSinceLevelLoad - lastClickTime;
+
     private void Update()
     {
         if (EventSystem.current.IsPointerOverGameObject())
@@ -35,9 +42,19 @@ public class InputManager : MonoBehaviour
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-                    var result = car.ToggleEngine();
-                    if (result)
-                        isHolding = true;
+                    if (car == lastClickObject && TimeSinceLastClick < doubleClickThreshold && car.carState != VehicleController.CarStates.Boosted)
+                        car.HandleBoost();
+                    else
+                    {
+                        var result = car.ToggleEngine();
+                        if (result)
+                            isHolding = true;
+                    }
+
+                    Debug.Log(TimeSinceLastClick);
+
+                    lastClickTime = Time.timeSinceLevelLoad;
+                    lastClickObject = car;
                 }
                 if (Input.GetMouseButtonUp(0))
                 {
@@ -54,6 +71,9 @@ public class InputManager : MonoBehaviour
                     else
                         holdingTimer += Time.deltaTime;
                 }
+                
+                //if (Input.GetMouseButtonDown(1))
+                    //car.HandleBoost();
             }
             else
             {

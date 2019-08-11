@@ -33,6 +33,10 @@ public class MapHolder : SerializedMonoBehaviour
     public float angeryCooldown = .5f;
     public float angeryPerformanceLossPerTick = 0.01f;
 
+    public float boostDuration = 3f;
+    public float boostSpeedMul = 4f;
+    public float boostAccelFactor = 8f;
+
     public void Generate()
     {
         bindings.Init();

@@ -42,6 +42,9 @@ public class VehicleController : MonoBehaviour
 
     public bool ToggleEngine()
     {
+        if (carState == CarStates.Boosted)
+            return false;
+        
         if (!isStoppedByPlayer && !goPathTween.IsPlaying())
             return false;
         
@@ -84,6 +87,9 @@ public class VehicleController : MonoBehaviour
     {
         if (!isStoppedByPlayer && !goPathTween.IsPlaying())
             return;
+        
+        Explode();
+        return;
 
         isStoppedByPlayer = false;
         if (null != currentBubble)
@@ -99,6 +105,15 @@ public class VehicleController : MonoBehaviour
         fx.PlayEvacFx(transform.position, goPathTween.PathGetPoint(0));
 
         goPathTween.Restart();
+    }
+
+    public void HandleBoost()
+    {
+        if (isStoppedByPlayer)
+            ToggleEngine();
+        boostTimer = map.boostDuration;
+        carState = CarStates.Boosted;
+        Debug.Log("boost");
     }
 
     IEnumerator waitingCor()
@@ -213,7 +228,7 @@ public class VehicleController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + transform.forward * map.probeLen);
+        Gizmos.DrawWireSphere(transform.position + transform.forward * (map.probeLen - .2f), .25f);
     }
 
 
@@ -221,6 +236,8 @@ public class VehicleController : MonoBehaviour
 
     public bool isAngery;
     public float angeryCDTimer;
+
+    public float boostTimer = 0f;
 
     private void Update()
     {
@@ -239,13 +256,13 @@ public class VehicleController : MonoBehaviour
 
                 var relSpd = (moveSpd * accelFactor) / (otherCar.moveSpd * Mathf.Max(otherCar.accelFactor, 0.01f));
 
-                if (relSpd > 1f)
-                {
-                    carState = CarStates.Decelerating;
-                    isAngery = true;
-                }
+                if (carState != CarStates.Boosted)
+                    if (relSpd > 1f)
+                        carState = CarStates.Decelerating;
+
+                isAngery = true;
             }
-            else
+            else if (carState != CarStates.Boosted)
             {
                 if (!isStoppedByPlayer)
                     carState = CarStates.Accelerating;
@@ -264,6 +281,24 @@ public class VehicleController : MonoBehaviour
                 if (isStoppedByPlayer && accelFactor <= 0f)
                     carState = CarStates.Stopped;
                 break;
+            case CarStates.Boosted:
+                boostTimer -= Time.deltaTime;
+                if (boostTimer > map.boostDuration * .75f)
+                {
+                    accelFactor += acceleration * map.boostAccelFactor * Time.deltaTime;
+                    accelFactor = Mathf.Min(accelFactor, map.boostSpeedMul);
+                }
+                else if (boostTimer > 0f && boostTimer <= map.boostDuration * .25f)
+                {
+                    accelFactor -= acceleration * map.boostAccelFactor * Time.deltaTime;
+                    accelFactor = Mathf.Max(accelFactor, 1f);
+                }
+                else if (boostTimer <= 0f)
+                {
+                    carState = CarStates.Going;
+                }
+
+                break;
             case CarStates.Going:
                 accelFactor = 1f;
                 break;
@@ -272,13 +307,14 @@ public class VehicleController : MonoBehaviour
                 break;
         }
 
-        accelFactor = Mathf.Clamp01(accelFactor);
+        if (carState != CarStates.Boosted)
+            accelFactor = Mathf.Clamp01(accelFactor);
         if (null != goPathTween)
             goPathTween.timeScale = accelFactor;
 
 
-        angeryCDTimer -= Time.deltaTime;
-        
+        angeryCDTimer = Mathf.Max(angeryCDTimer - Time.deltaTime, -1f);
+
         if (isAngery && angeryCDTimer <= 0f && null == angeryBubble)
         {
             StartCoroutine(angeryCor());
