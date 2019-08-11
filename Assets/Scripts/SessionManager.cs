@@ -7,7 +7,6 @@ using Random = UnityEngine.Random;
 
 public class SessionManager : MonoBehaviour
 {
-    public MapHolder map;
     public VehicleSpawner[] spawners;
 
     public GameObject[] carPrefabs;

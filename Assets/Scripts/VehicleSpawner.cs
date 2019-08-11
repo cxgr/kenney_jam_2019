@@ -134,7 +134,7 @@ public class VehicleSpawner : MonoBehaviour
     {
         var bubble = SingletonUtils<FxController>.Instance.GetSpeechBubble();
 
-        bubble.PlayClip(tileSrc.GetMovementPos() + Vector3.up * .25f, "alert");
+        bubble.PlayClip(tileSrc.GetMovementPos() + Vector3.up * .95f, "alert");
         yield return new WaitForSeconds(4f);
         bubble.Release();
 

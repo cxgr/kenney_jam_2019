@@ -213,7 +213,7 @@ public class VehicleController : MonoBehaviour
             isAngery = false;
             
             currentBubble = fx.GetSpeechBubble();
-            currentBubble.PlayClip(transform.position + Vector3.up * .5f, RandomHappy());
+            currentBubble.PlayClip(transform.position + Vector3.up * .95f, RandomHappy());
 
             ui.Performance += isVIP ? map.performanceGainPerArrivalVIP : map.performanceGainPerArrival;
 

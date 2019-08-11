@@ -48,7 +48,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1648681070873457877
 Transform:
   m_ObjectHideFlags: 0
@@ -3983,7 +3983,7 @@ GameObject:
   - component: {fileID: 178915390061421374}
   - component: {fileID: 7859913882764446271}
   m_Layer: 11
-  m_Name: TILE_r_road
+  m_Name: TILE_r_road_b
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
