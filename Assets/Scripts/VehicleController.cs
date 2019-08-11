@@ -92,6 +92,7 @@ public class VehicleController : MonoBehaviour
             return;
         
         SingletonUtils<SoundManager>.Instance.Play3D(Random.value < .5f ? "explosion1" : "explosion2", transform.position);
+        SingletonUtils<SoundManager>.Instance.Play3D("explosion_addon", transform.position);
         Explode();
         return;
 

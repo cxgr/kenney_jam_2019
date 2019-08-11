@@ -120,17 +120,39 @@ public class UiManager : MonoBehaviour
             Application.Quit();
     }
 
-    public void ShowGameoverScreen()
-    {
-        gameoverScreen.SetActive(true);
-        
-        //stats
-    }
-
     public void BtnRestart()
     {
         DOTween.KillAll(false);
         ttm.SetPaused(false);
         SceneManager.LoadScene(0);
+    }
+
+    public TextMeshProUGUI txtSafe;
+    public TextMeshProUGUI txtDead;
+    public TextMeshProUGUI txtRage;
+    
+    public void ShowGameoverScreen()
+    {
+        var ses = SingletonUtils<SessionManager>.Instance;
+        txtSafe.text = ses.arrived.ToString();
+        txtDead.text = ses.dead.ToString();
+        txtRage.text = ses.annoyed.ToString();
+        
+        gameoverScreen.SetActive(true);
+
+        StartCoroutine(gameoverAnim());
+        //stats
+    }
+
+    public GameObject[] seq;
+    
+    IEnumerator gameoverAnim()
+    {
+        yield return new WaitForSecondsRealtime(.5f);
+        seq[0].SetActive(true);
+        yield return new WaitForSecondsRealtime(2f);
+        seq[1].SetActive(true);
+        yield return new WaitForSecondsRealtime(3f);
+        seq[2].SetActive(true);
     }
 }
