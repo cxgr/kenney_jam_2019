@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UiManager : MonoBehaviour
@@ -33,8 +35,9 @@ public class UiManager : MonoBehaviour
     
     private void Awake()
     {
-        //Cursor.SetCursor(cursorTex, hotspot, CursorMode.Auto);
-        //Performance = 0.5f;
+        btnNewGame.SetActive(true);
+        btnResume.SetActive(false);
+        menuScreen.SetActive(true);
     }
 
     public float blinkLerp = 100f;
@@ -64,5 +67,67 @@ public class UiManager : MonoBehaviour
             pp.TryGetSettings<ColorGrading>(out var cg);
             cg.ldrLutContribution.value = 1f - happiness;   
         }
+    }
+
+    public TextMeshProUGUI txtTimer;
+        
+    public void UpdateTimeIndicator(string timeStr)
+    {
+        txtTimer.text = timeStr;
+    }
+
+    private TimeManager ttm => SingletonUtils<TimeManager>.Instance;
+    
+    public GameObject introScreen;
+    public GameObject menuScreen;
+    public GameObject gameoverScreen;
+    public void BtnMenu()
+    {
+        ttm.SetPaused(true);
+        menuScreen.SetActive(true);
+        
+        btnNewGame.SetActive(false);
+        btnResume.SetActive(true);
+    }
+
+    public GameObject btnNewGame;
+    public GameObject btnResume;
+
+    public void BtnNewGame()
+    {
+        SingletonUtils<SessionManager>.Instance.StartNewGame();
+        menuScreen.SetActive(false);
+    }
+    
+    public void BtnResume()
+    {
+        ttm.SetPaused(false);
+        menuScreen.SetActive(false);
+    }
+
+    public TextMeshProUGUI audBtnText;
+    public void BtnSound()
+    {
+        var aud = SingletonUtils<SoundManager>.Instance;
+        aud.audioOn = !aud.audioOn;
+        audBtnText.text = $"AUDIO {(aud.audioOn ? "ON" : "OFF")}";
+    }
+
+    public void BtnQuit()
+    {
+        if (!Application.isEditor)
+            Application.Quit();
+    }
+
+    public void ShowGameoverScreen()
+    {
+        gameoverScreen.SetActive(true);
+        
+        //stats
+    }
+
+    public void BtnRestart()
+    {
+        SceneManager.LoadScene(0);
     }
 }
