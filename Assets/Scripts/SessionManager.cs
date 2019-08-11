@@ -11,17 +11,27 @@ public class SessionManager : MonoBehaviour
 
     public GameObject[] carPrefabs;
 
-    private void Start()
+    private UiManager ui => SingletonUtils<UiManager>.Instance;
+
+    public GameObject GetCarPrefab(bool random, int idx = 0)
+    {
+        return random ? carPrefabs[Random.Range(0, carPrefabs.Length)] : carPrefabs[idx];
+    }
+
+    public void StartNewGame()
     {
         spawners = GetComponentsInChildren<VehicleSpawner>();
         foreach (var s in spawners)
         {
             s.isLive = true;
         }
+        
+        SingletonUtils<TimeManager>.Instance.StartTimer();
     }
 
-    public GameObject GetCarPrefab(bool random, int idx = 0)
+    public void FinishByTimeOut()
     {
-        return random ? carPrefabs[Random.Range(0, carPrefabs.Length)] : carPrefabs[idx];
+        SingletonUtils<TimeManager>.Instance.SetPaused(true);
+        ui.ShowGameoverScreen();
     }
 }
