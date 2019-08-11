@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
@@ -128,6 +129,7 @@ public class UiManager : MonoBehaviour
 
     public void BtnRestart()
     {
+        DOTween.KillAll(false);
         ttm.SetPaused(false);
         SceneManager.LoadScene(0);
     }

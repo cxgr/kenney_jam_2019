@@ -88,6 +88,7 @@ public class VehicleController : MonoBehaviour
         if (!isStoppedByPlayer && !goPathTween.IsPlaying())
             return;
         
+        SingletonUtils<SoundManager>.Instance.Play3D(Random.value < .5f ? "explosion1" : "explosion2", transform.position);
         Explode();
         return;
 
@@ -153,16 +154,17 @@ public class VehicleController : MonoBehaviour
         if (null != otherCar)
         {
             Explode();
-            otherCar.Explode();
+            otherCar.Explode(true);
+            SingletonUtils<SoundManager>.Instance.Play3D(Random.value < .5f ? "explosion1" : "explosion2", transform.position);
         }
     }
 
     private bool isExploding;
-    public void Explode()
+    public void Explode(bool other = false)
     {
         if (isExploding)
             return;
-        
+
         StopAllCoroutines();
         if (null != currentBubble)
         {
@@ -194,6 +196,12 @@ public class VehicleController : MonoBehaviour
 
         if (success)
         {
+            carState = CarStates.Stopped;
+            if (null != angeryBubble)
+                angeryBubble.Release();
+            StopAllCoroutines();
+            isAngery = false;
+            
             currentBubble = fx.GetSpeechBubble();
             currentBubble.PlayClip(transform.position + Vector3.up * .5f, RandomHappy());
 
@@ -332,6 +340,10 @@ public class VehicleController : MonoBehaviour
         angeryBubble.PlayClip( transform.position + Vector3.up * .5f, "angery");
         angeryBubble.FollowMe(transform, Vector3.up * .5f, true, .35f);
         ui.Performance -= map.angeryPerformanceLossPerTick;
+
+        var honkKey = "honk" + Random.Range(1, 5).ToString();
+        SingletonUtils<SoundManager>.Instance.Play3D(honkKey, transform.position);
+
         yield return new WaitForSeconds(2f);
         angeryBubble.Release();
         angeryBubble = null;
