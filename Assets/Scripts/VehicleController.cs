@@ -284,6 +284,8 @@ public class VehicleController : MonoBehaviour
             StartCoroutine(angeryCor());
             angeryCDTimer = map.angeryCooldown;
         }
+
+        isAngery = false;
     }
 
     private SpeechBubble angeryBubble;
