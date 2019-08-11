@@ -40,15 +40,18 @@ public class VehicleController : MonoBehaviour
     public float acceleration = 200;
     public float accelFactor = 0f;
 
-    public bool ToggleEngine()
+    public bool ToggleEngine(bool ignoreSound = false)
     {
         if (carState == CarStates.Boosted)
             return false;
         
         if (!isStoppedByPlayer && !goPathTween.IsPlaying())
             return false;
-        
+
         isStoppedByPlayer = !isStoppedByPlayer;
+        
+        if (!ignoreSound)
+            SingletonUtils<SoundManager>.Instance.PlaySound(isStoppedByPlayer ? "car_off" : "car_on");
 
         if (isStoppedByPlayer)
             carState = CarStates.Decelerating;
@@ -110,17 +113,19 @@ public class VehicleController : MonoBehaviour
 
     public void HandleBoost()
     {
+        SingletonUtils<SoundManager>.Instance.PlaySound(Random.value < .5f ? "boost1" : "boost2");
+        SingletonUtils<SoundManager>.Instance.PlaySound("boost_addon");
         if (isStoppedByPlayer)
-            ToggleEngine();
+            ToggleEngine(true);
         boostTimer = map.boostDuration;
         carState = CarStates.Boosted;
-        Debug.Log("boost");
     }
 
     IEnumerator waitingCor()
     {
         yield return new WaitForSeconds(2f);
         ui.Performance -= isVIP ? map.performanceDropVIP : map.performanceDropPerTick;
+        SingletonUtils<SessionManager>.Instance.annoyed++;
         yield return new WaitForSeconds(.5f);
     }
 
@@ -165,6 +170,8 @@ public class VehicleController : MonoBehaviour
         if (isExploding)
             return;
 
+        SingletonUtils<SessionManager>.Instance.dead++;
+
         StopAllCoroutines();
         if (null != currentBubble)
         {
@@ -196,6 +203,8 @@ public class VehicleController : MonoBehaviour
 
         if (success)
         {
+            SingletonUtils<SessionManager>.Instance.arrived++;
+            SingletonUtils<SoundManager>.Instance.Play3D("arrived", transform.position);
             carState = CarStates.Stopped;
             if (null != angeryBubble)
                 angeryBubble.Release();
@@ -340,6 +349,7 @@ public class VehicleController : MonoBehaviour
         angeryBubble.PlayClip( transform.position + Vector3.up * .5f, "angery");
         angeryBubble.FollowMe(transform, Vector3.up * .5f, true, .35f);
         ui.Performance -= map.angeryPerformanceLossPerTick;
+        SingletonUtils<SessionManager>.Instance.annoyed++;
 
         var honkKey = "honk" + Random.Range(1, 5).ToString();
         SingletonUtils<SoundManager>.Instance.Play3D(honkKey, transform.position);
